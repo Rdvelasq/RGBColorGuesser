@@ -1,0 +1,57 @@
+body{
+    margin: 0;
+}
+
+.content-wrapper{
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr .10fr 5fr ;
+    
+    
+}
+
+.top-portion{
+    background-color: #2e8e99;
+    color: white;
+    text-align: center;
+    
+}
+
+#rgb-color{
+    text-transform: uppercase;
+}
+
+#new-colors{
+    border: none;
+    background-color: white;
+    margin-left: 325px;
+    color: #2e8e99;
+    cursor: pointer;
+}
+
+.bottom-portion{
+    background-color: black;
+    display: grid;
+    gap: 15px;
+    grid-auto-rows: 200px;
+    grid-template-columns: 200px 200px 200px;
+    justify-content: center;
+    align-content: center;
+}
+
+.bottom-portion  > div{
+    border-radius: 40px;
+    cursor: pointer;
+    
+}
+
+.bottom-portion > div.fadeIn{
+    opacity: 0;
+    transition: 1s;
+}
+
+.bottom-portion > div.fadeOut{
+    opacity: 1;
+    transition: 1s;
+}
+
