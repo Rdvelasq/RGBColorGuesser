@@ -24,13 +24,18 @@ body{
 .middle-porition{
     text-align: center;
     margin: auto;
+    
 }
+
+
 
 #new-colors{
     border: none;
     background-color: white;
     color: #2e8e99;
     cursor: pointer;
+    display: inline-block;
+    font-size: 15px;
 }
 
 
@@ -53,6 +58,8 @@ body{
 .bottom-portion > div.fadeIn{
     opacity: 0;
     transition: 1s;
+    cursor: default;
+    
 }
 
 .bottom-portion > div.fadeOut{

@@ -21,6 +21,7 @@ function randomRGB(){
 function fadeToBlack(){
     //fades every box to black besides the winning box
     this.classList.toggle("fadeIn");
+    this.removeEventListener("click", fadeToBlack);
 }
 
 function removeEventListenerAndClassList(){
