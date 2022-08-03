@@ -21,13 +21,18 @@ body{
     text-transform: uppercase;
 }
 
+.middle-porition{
+    text-align: center;
+    margin: auto;
+}
+
 #new-colors{
     border: none;
     background-color: white;
-    margin-left: 325px;
     color: #2e8e99;
     cursor: pointer;
 }
+
 
 .bottom-portion{
     background-color: black;

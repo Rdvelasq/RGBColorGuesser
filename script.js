@@ -25,7 +25,6 @@ function fadeToBlack(){
 
 function removeEventListenerAndClassList(){
     //remove event listener from the winnning box to avoid having multiple boxes with a new game event listener
-    this.removeEventListener("click", newGame);
         boxArray.forEach(boxEl => {
             //checks all box elements that contain class "fadeIn" to fades them back out for next game and removes fadeIn and fadeOut class in CSS
             if (boxEl.classList.contains("fadeIn")) {
@@ -44,6 +43,7 @@ function newGame(){
 
 function continueGame(){
     scoreEl.innerHTML++;
+    this.removeEventListener("click", continueGame);
     removeEventListenerAndClassList();
     startGame();
 }
