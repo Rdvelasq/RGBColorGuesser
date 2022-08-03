@@ -6,9 +6,9 @@ let boxFiveEl = document.getElementById("box-color-five");
 let boxSixEl = document.getElementById("box-color-six");
 let winningRgbTextEl = document.getElementById("rgb-color");
 let newColorsEl = document.getElementById("new-colors")
+let scoreEl = document.getElementById("score");
 
 let boxArray = [boxOneEl, boxTwoEl, boxThreeEl, boxFourEl, boxFiveEl, boxSixEl];
-
 
 
 function randomRGB(){
@@ -23,17 +23,28 @@ function fadeToBlack(){
     this.classList.toggle("fadeIn");
 }
 
-function newGame(){
+function removeEventListenerAndClassList(){
     //remove event listener from the winnning box to avoid having multiple boxes with a new game event listener
-    this.removeEventListener("click", newGame)
-    boxArray.forEach(boxEl => {
-        //checks all box elements that contain class "fadeIn" to fades them back out for next game and removes fadeIn and fadeOut class in CSS
-        if (boxEl.classList.contains("fadeIn")) {
-            boxEl.classList.toggle("fadeOut");
-            boxEl.classList.remove("fadeIn");  
-            boxEl.classList.remove("fadeOut");       
-        }     
-    })
+    this.removeEventListener("click", newGame);
+        boxArray.forEach(boxEl => {
+            //checks all box elements that contain class "fadeIn" to fades them back out for next game and removes fadeIn and fadeOut class in CSS
+            if (boxEl.classList.contains("fadeIn")) {
+                boxEl.classList.toggle("fadeOut");
+                boxEl.classList.remove("fadeIn");  
+                boxEl.classList.remove("fadeOut");       
+            }  
+        })
+}
+
+function newGame(){
+        scoreEl.innerHTML = 0;
+        removeEventListenerAndClassList();
+        startGame();
+}
+
+function continueGame(){
+    scoreEl.innerHTML++;
+    removeEventListenerAndClassList();
     startGame();
 }
 
@@ -60,9 +71,10 @@ function startGame(){
     boxArray.forEach(box =>{
         box.addEventListener("click", fadeToBlack)
     })
-    //starts a new game if the winning box or new colors button is selectde
-    winningBoxEl.addEventListener("click", newGame);
-    newColorsEl.addEventListener("click", newGame);   
+
+    //if new colors is clicked it will reset the score while the winning box will continue the game
+    winningBoxEl.addEventListener("click", continueGame);
+    newColorsEl.addEventListener("click", newGame);
 }
 
 startGame();
