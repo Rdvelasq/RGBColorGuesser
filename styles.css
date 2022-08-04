@@ -27,7 +27,10 @@ body{
     
 }
 
-
+.heart-imgs > img.fadeToWhite{
+    transition: 1s;
+    filter: opacity(0);
+}
 
 #new-colors{
     border: none;

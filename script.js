@@ -7,8 +7,12 @@ let boxSixEl = document.getElementById("box-color-six");
 let winningRgbTextEl = document.getElementById("rgb-color");
 let newColorsEl = document.getElementById("new-colors")
 let scoreEl = document.getElementById("score");
+let heartOneEl = document.getElementById("heart-img1");
+let heartTwoEl = document.getElementById("heart-img2");
+let heartThreeEl = document.getElementById("heart-img3");
 
 let boxArray = [boxOneEl, boxTwoEl, boxThreeEl, boxFourEl, boxFiveEl, boxSixEl];
+let livesArray = [heartOneEl, heartTwoEl, heartThreeEl];
 
 
 function randomRGB(){
@@ -20,8 +24,17 @@ function randomRGB(){
 
 function fadeToBlack(){
     //fades every box to black besides the winning box
-    this.classList.toggle("fadeIn");
-    this.removeEventListener("click", fadeToBlack);
+    let livesLeft = livesArray.length;
+    if (livesLeft != 0 ) {
+        this.classList.toggle("fadeIn");
+        this.removeEventListener("click", fadeToBlack);
+        debugger;
+        let currentLife = livesArray[livesLeft-1];  
+        livesArray.splice(currentLife, 1);
+        currentLife.classList.toggle("fadeToWhite");
+        currentLife.classList.remove("fadeToWhite");
+    }
+    
 }
 
 function removeEventListenerAndClassList(){
