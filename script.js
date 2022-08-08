@@ -25,40 +25,56 @@ function randomRGB(){
 function fadeToBlack(){
     //fades every box to black besides the winning box
     let livesLeft = livesArray.length;
-    if (livesLeft != 0 ) {
-        this.classList.toggle("fadeIn");
-        this.removeEventListener("click", fadeToBlack);
-        debugger;
-        let currentLife = livesArray[livesLeft-1];  
-        livesArray.splice(currentLife, 1);
-        currentLife.classList.toggle("fadeToWhite");
-        currentLife.classList.remove("fadeToWhite");
+    //check if user lost all their lives if lives left = 0 then end restart game
+    this.classList.toggle("fadeIn");
+    //index of the last live
+    let indexOfLives = livesLeft - 1;
+    let currentLife = livesArray[indexOfLives];  
+    //remove one elemnt from livesArray based on the indexOfLives
+    livesArray.splice(indexOfLives,1);  
+    //fade to white to indicate life lost
+    currentLife.classList.toggle("fadeToWhite");
+    //end game when user reached 0 lives
+    if(livesArray.length == 0){
+        alert("game over"); 
+        newGame();
     }
-    
 }
 
-function removeEventListenerAndClassList(){
-    //remove event listener from the winnning box to avoid having multiple boxes with a new game event listener
+function removeClassListAndEventListener(){
+    debugger;
         boxArray.forEach(boxEl => {
             //checks all box elements that contain class "fadeIn" to fades them back out for next game and removes fadeIn and fadeOut class in CSS
-            if (boxEl.classList.contains("fadeIn")) {
+            //if (boxEl.classList.contains("fadeToBlack")) {
                 boxEl.classList.toggle("fadeOut");
                 boxEl.classList.remove("fadeIn");  
-                boxEl.classList.remove("fadeOut");       
-            }  
+                boxEl.classList.remove("fadeOut");
+                boxEl.removeEventListener("click",fadeToBlack);
+                boxEl.removeEventListener("click", continueGame);
+              
         })
+       
+}
+
+function removeClassListFromLives(){
+    livesArray.push(heartOneEl);
+    livesArray.push(heartTwoEl);
+    livesArray.push(heartThreeEl);
+    livesArray.forEach(heartEl =>{
+        heartEl.classList.remove("fadeToWhite");
+    })
 }
 
 function newGame(){
         scoreEl.innerHTML = 0;
-        removeEventListenerAndClassList();
+        removeClassListFromLives();
+        removeClassListAndEventListener();
         startGame();
 }
 
 function continueGame(){
     scoreEl.innerHTML++;
-    this.removeEventListener("click", continueGame);
-    removeEventListenerAndClassList();
+    removeClassListAndEventListener();
     startGame();
 }
 
@@ -80,11 +96,14 @@ function startGame(){
     winningRgbTextEl.innerHTML = rgbWinningBox;
 
     //remove's winning box from box array
+    let winningBox = boxArray[randomBoxNumber];
     boxArray.splice(randomBoxNumber, 1);
+    
     //assigns every box that is not the winning box to have a fade to black transition for incorrect guess
     boxArray.forEach(box =>{
         box.addEventListener("click", fadeToBlack)
     })
+    boxArray.splice(randomBoxNumber, 0, winningBox);
 
     //if new colors is clicked it will reset the score while the winning box will continue the game
     winningBoxEl.addEventListener("click", continueGame);
